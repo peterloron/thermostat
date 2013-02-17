@@ -40,8 +40,8 @@
   const int relay_pin = 9;
   boolean relay_on = false;
   
-  const float relay_on_temp = 28.0;
-  const float relay_off_temp = 29.0;
+  const float relay_on_temp = 34.0;
+  const float relay_off_temp = 36.0;
   
   float Thermistor(int RawADC) {
     long Resistance;  
@@ -61,7 +61,7 @@
     //chibiSleepRadio(true);
     
     //configure serial
-    Serial.begin(115200);
+    //Serial.begin(115200);
     
     //configure relay pin
     pinMode(relay_pin,OUTPUT);
@@ -72,8 +72,8 @@
     float temp;
     char buffer[16];
     
-    Serial.print("Float : ");
-    Serial.println(buffer);
+    //Serial.print("Float : ");
+    //Serial.println(buffer);
     
     temp=Thermistor(analogRead(ThermistorPIN));       // read ADC and  convert it to Celsius
     dtostrf(temp,5,2,buffer);
@@ -83,8 +83,8 @@
     chibiTx(BROADCAST_ADDR, (byte*)buffer, sizeof(buffer)+1);
     //chibiTx(BROADCAST_ADDR,msg,12);
     
-    Serial.print("Sending ");
-    Serial.println(temp,1);
+    //Serial.print("Sending ");
+    //Serial.println(temp,1);
    
     //manage relay
     if(temp < relay_on_temp) {
@@ -98,6 +98,6 @@
     }
    
     
-    delay(1000);
+    delay(10000);
   }
  
